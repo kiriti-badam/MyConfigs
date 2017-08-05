@@ -19,6 +19,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
+" Indentation plugin to follow PEP8 standards for Python
+Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
@@ -47,19 +49,25 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-filetype plugin on
-filetype indent on
-
 "highlight results while searching
 set hlsearch
 
-" 1 tab == 4 spaces
-set shiftwidth=4
 set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
 set smartindent
+set fileformat=unix
 
-set ai "Auto indent
-set si "Smart indent
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
 set wrap "Wrap lines
 set number
 
@@ -69,3 +77,8 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 let g:solarized_termcolors=256
 colorscheme solarized
+
+" Enable code folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
